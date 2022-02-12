@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redux</title>
+    <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+  </head>
+  <body>
+    <h1>Creating a Solar System</h1>
+
+    <input type="text" placeholder="Add a Planet" id="input" />
+    <div>
+      <ul id="planet_container"></ul>
+    </div>
+    <hr />
+    <button id="add">Add Planet</button>
+    <button id="destroy">Destroy Planet</button>
+
+    <script>
+      const planetContainer = document.querySelector("#planet_container");
+      const addPlanet = document.querySelector("#add");
+      const destroyPlanet = document.querySelector("#destroy");
+      const input = document.querySelector("#input");
+
+      const store = Redux.createStore(planetReducer);
+      const { dispatch, subscribe, getState } = store;
+
+      console.log(getState());
+
+      addPlanet.addEventListener("click", () => {
+        if (input.value.length > 0) {
+          if (getState().state === "DESTROYED") {
+            planetContainer.innerHTML = "";
+            dispatch({
+              type: "ADD_PLANET",
+              payload: input.value,
+              state: "ADD",
+            });
+          } else {
+            dispatch({
+              type: "ADD_PLANET",
+              payload: input.value,
+              state: "ADD",
+            });
+          }
+        }
+      });
+
+      destroyPlanet.addEventListener("click", () => {
+        if (input.value.length > 0) {
+          console.log(getState());
+          dispatch({
+            type: "DESTROY_PLANET",
+            payload: null,
+            state: "DESTROYED",
+          });
+        }
+      });
+
+      function render() {
+        if (getState().state === "ADD") {
+          const li = document.createElement("li");
+          console.log(getState());
+          const inputText = getState().planet;
+          li.innerHTML = inputText;
+          planetContainer.appendChild(li);
+        } else if (getState().state === "DESTROYED") {
+          const p = document.createElement("p");
+
+          p.innerHTML = "All Planets have been destroyed!";
+          planetContainer.innerHTML = "";
+          planetContainer.appendChild(p);
+        }
+      }
+
+      render();
+
+      const unsubscribe = subscribe(render);
+
+      function planetReducer(state = {}, action) {
+        switch (action.type) {
+          case "ADD_PLANET":
+            return {
+              ...state,
+              planet: action.payload,
+              state: action.state,
+            };
+          case "DESTROY_PLANET":
+            return {
+              ...state,
+              planet: action.payload,
+              state: action.state,
+            };
+
+          default:
+            return state;
+        }
+      }
+    </script>
+  </body>
+</html>
