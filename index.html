@@ -19,50 +19,45 @@
     <button id="destroy">Destroy Planet</button>
 
     <script>
+      // Reducer Actions
+      const ADD_PLANET = "ADD_PLANET";
+      const DESTROY_PLANET = "DESTROY_PLANET";
       const planetContainer = document.querySelector("#planet_container");
       const addPlanet = document.querySelector("#add");
       const destroyPlanet = document.querySelector("#destroy");
       const input = document.querySelector("#input");
 
-      const store = Redux.createStore(planetReducer);
+      const store = Redux.createStore(
+        planetReducer,
+        window.__REDUX_DEVTOOLS_EXTENSION__ &&
+          window.__REDUX_DEVTOOLS_EXTENSION__()
+      );
       const { dispatch, subscribe, getState } = store;
 
-      console.log(getState());
-
+      // Add planet handler
       addPlanet.addEventListener("click", () => {
         if (input.value.length > 0) {
           if (getState().state === "DESTROYED") {
             planetContainer.innerHTML = "";
-            dispatch({
-              type: "ADD_PLANET",
-              payload: input.value,
-              state: "ADD",
-            });
+            dispatch(addPlanetAction("ADD"));
           } else {
-            dispatch({
-              type: "ADD_PLANET",
-              payload: input.value,
-              state: "ADD",
-            });
+            dispatch(addPlanetAction("ADD"));
           }
         }
       });
 
+      // Destroy planet handler
       destroyPlanet.addEventListener("click", () => {
         if (input.value.length > 0) {
-          console.log(getState());
-          dispatch({
-            type: "DESTROY_PLANET",
-            payload: null,
-            state: "DESTROYED",
-          });
+          dispatch(destroyPlanetAction("DESTROYED"));
         }
       });
 
+      // Render method
       function render() {
         if (getState().state === "ADD") {
           const li = document.createElement("li");
-          console.log(getState());
+
           const inputText = getState().planet;
           li.innerHTML = inputText;
           planetContainer.appendChild(li);
@@ -75,19 +70,21 @@
         }
       }
 
+      // Handles UI change
       render();
 
-      const unsubscribe = subscribe(render);
+      const unsubscribe = subscribe(render); // Whenever the state is changed i.e: a dispatch is called this subscribe will call its callback function. And returns an unsubscribe function.
 
+      // Reducer Function
       function planetReducer(state = {}, action) {
         switch (action.type) {
-          case "ADD_PLANET":
+          case ADD_PLANET:
             return {
               ...state,
               planet: action.payload,
               state: action.state,
             };
-          case "DESTROY_PLANET":
+          case DESTROY_PLANET:
             return {
               ...state,
               planet: action.payload,
@@ -98,6 +95,20 @@
             return state;
         }
       }
+
+      // Action creators
+
+      const addPlanetAction = (description) => ({
+        type: ADD_PLANET,
+        payload: input.value,
+        state: description,
+      });
+
+      const destroyPlanetAction = (description) => ({
+        type: DESTROY_PLANET,
+        payload: null,
+        state: description,
+      });
     </script>
   </body>
 </html>
