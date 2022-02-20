@@ -31,7 +31,7 @@ const fetchFailureAction = (error) => {
         payload: error
     }
 }
-console.log(thunk.default);
+
 function reducer(state = userState, action) {
     switch (action.type) {
         case FETCH_USERS_REQUEST: 
@@ -58,17 +58,20 @@ function reducer(state = userState, action) {
     }
 }
 
+// Redux thunk middleware gives an action creator the ability to return a function instead of an // object
+
+// This is an action creator which returns a function
 function fetchUser() {
     return function (dispatch) {
         
         dispatch(fetchRequestAction());
-        axios.get("https://jsonplaceholer.typicode.com/users")
+        axios.get("https://jsonplacholder.typicode.com/users")
             .then(response => {
                 const users = response.data.map(u => u.id);
                 dispatch(fetchSuccessAction(users));
             })
             .catch(err => {
-                dispatch(dispatch(fetchFailureAction(err.message)));
+                dispatch(fetchFailureAction(err.message));
             })
 
     }
