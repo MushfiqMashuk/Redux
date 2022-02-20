@@ -1,5 +1,8 @@
 // Multiple reducer
 import redux from "redux";
+import reduxLogger from "redux-logger";
+
+const logger = reduxLogger.createLogger();
 
 const powerState = {
     powers: ["Super Human Strength"]
@@ -10,14 +13,14 @@ const costumeState = {
 
 const ADD_POWER = "ADD_POWER";
 const ADD_COSTUME = "ADD_COSTUME";
-const {createStore, combineReducers} = redux;
+const {createStore, combineReducers, applyMiddleware} = redux;
 
 const rootReducers = combineReducers({
     power: powerReducer,
     costume: costumeReducer
 })
 
-const store = createStore(rootReducers);
+const store = createStore(rootReducers, applyMiddleware(logger));
 
 const {dispatch, getState, subscribe} = store;
 
