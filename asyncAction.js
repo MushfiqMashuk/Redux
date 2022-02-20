@@ -62,13 +62,13 @@ function fetchUser() {
     return function (dispatch) {
         
         dispatch(fetchRequestAction());
-        axios.get("https://jsonplaceholder.typicode.com/users")
+        axios.get("https://jsonplaceholer.typicode.com/users")
             .then(response => {
                 const users = response.data.map(u => u.id);
                 dispatch(fetchSuccessAction(users));
             })
             .catch(err => {
-                dispatch(dispatch(fetchRequestAction(err.message)));
+                dispatch(dispatch(fetchFailureAction(err.message)));
             })
 
     }
