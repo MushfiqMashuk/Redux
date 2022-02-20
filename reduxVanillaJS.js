@@ -66,5 +66,5 @@ function costumeReducer(state = costumeState, action) {
 dispatch(addPowerAction());
 dispatch(addCostumeAction());
 
-subscribe(() => console.log("State Changed"));
+subscribe(() => {});
 console.log(getState().costume);
