@@ -1,0 +1,2 @@
+export const DESTROY_PLANET = "DESTROY_PLANET";
+
