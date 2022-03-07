@@ -1,6 +1,6 @@
 import { createStore } from "redux";
-import planetReducer from "./planet/planetReducer";
+import rootReducer from "./rootReducer";
 
-const store = createStore(planetReducer);
+const store = createStore(rootReducer);
 
 export default store;

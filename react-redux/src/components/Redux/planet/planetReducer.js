@@ -11,7 +11,6 @@ export default function planetReducer(state = initialState, action) {
         ...state,
         planet: state.planet - 1,
       };
-
     default:
       return state;
   }
