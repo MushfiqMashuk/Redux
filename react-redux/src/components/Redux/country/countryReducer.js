@@ -9,7 +9,7 @@ function countryReducer(state = initialState, action) {
     case DESTROY_COUNTRY:
       return {
         ...state,
-        country: state.country - 1,
+        country: state.country - action.payload,
       };
 
     default:

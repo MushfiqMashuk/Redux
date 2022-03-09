@@ -4,6 +4,7 @@ import HooksCountry from "./components/HooksCountry";
 import HooksSolarSystem from "./components/HooksSolarSystem";
 import store from "./components/Redux/store";
 import SolarSystem from "./components/SolarSystem";
+import NewHooksCountry from "./components/NewHooksCountry";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <SolarSystem />
         <HooksSolarSystem/>
         <HooksCountry/>
+        <NewHooksCountry/>
       </div>
     </Provider>
   );

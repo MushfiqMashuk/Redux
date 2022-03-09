@@ -14,3 +14,14 @@ function HooksCountry() {
 }
 
 export default HooksCountry;
+
+const state = {
+  destroyCountry: {
+    country: 110,
+  },
+  destroyPlanet: {
+    planet: 12,
+  },
+};
+
+export { state };

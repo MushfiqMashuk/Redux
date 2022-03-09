@@ -1,7 +1,8 @@
-import {DESTROY_COUNTRY} from "./actionTypes"
+import { DESTROY_COUNTRY } from "./actionTypes";
 
-export const countryAction = () => {
-    return {
-        type: DESTROY_COUNTRY
-    }
-}
+export const countryAction = (payload = 1) => {
+  return {
+    type: DESTROY_COUNTRY,
+    payload: payload,
+  };
+};
