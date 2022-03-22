@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {countryAction} from "./Redux/country/countryAction";
+import { countryAction } from "./Redux/country/countryAction";
 
 function NewHooksCountry() {
   const [number, setNumber] = useState(1);

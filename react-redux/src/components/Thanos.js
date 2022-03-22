@@ -1,9 +1,12 @@
 import { connect } from "react-redux";
+import { countryAction } from "./Redux/country/countryAction";
+import { planetAction } from "./Redux/planet/planetAction";
 
-const Thanos = ({ item }) => {
+const Thanos = ({ item, dispatchFunc }) => {
   return (
     <div>
       <h2>Item {item}</h2>
+      <button onClick={dispatchFunc}>Destroy Something</button>
     </div>
   );
 };
@@ -19,6 +22,14 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const dispatchFunction = ownProps.gauntlet
+    ? () => dispatch(planetAction())
+    : () => dispatch(countryAction());
 
+  return {
+    dispatchFunc: dispatchFunction,
+  };
+};
 
-export default connect(mapStateToProps)(Thanos);
+export default connect(mapStateToProps, mapDispatchToProps)(Thanos);
